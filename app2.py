@@ -3,7 +3,7 @@ from shiny import App, ui, render, reactive
 import pandas as pd
 import matplotlib.pyplot as plt
 import matplotlib.dates as mdates
-
+import os
 
 
 # Cargar el modelo previamente guardado
@@ -502,6 +502,14 @@ def server(input, output, session):
     
 
 
-app = App(app_ui, server)
-app.run()
+# Configuración para Render
+if __name__ == "__main__":
+    import uvicorn
+    uvicorn.run(
+        App(app_ui, server),
+        host="0.0.0.0",
+        port=int(os.environ.get("PORT", 8000)),
+        reload=False
+    )
+
 
